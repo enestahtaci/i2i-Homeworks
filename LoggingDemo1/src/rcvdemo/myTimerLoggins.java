@@ -10,8 +10,7 @@ public class myTimerLoggins {
 		for(int i = 0; i < 3000; i++) {
 			demoLogger.info("this is info logger");
 			demoLogger.error("this is error logger");
-			demoLogger.debug("this is error debug");
-			demoLogger.fatal("this is error fatal");
+			demoLogger.debug("this is debug logger");
             try {
 				Thread.sleep(20);
 			} catch (InterruptedException e) {

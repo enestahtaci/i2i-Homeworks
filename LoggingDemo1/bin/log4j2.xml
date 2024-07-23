@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="basePath">D:\Projects\eclipse-workspace\LoggingDemo\logs</Property>
+        <!-- Property for the current date to be used in the file names -->
+        <Property name="currentDate">%d{yyyy-MM-dd}</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Debug file logger -->
+        <RollingFile name="debugFileLogger"
+            fileName="${basePath}/debug-${date:dd-MM-yyyy}.log"
+            filePattern="${basePath}/debug-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <pattern>%d{HH:mm:ss} [%t] %-5level %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="${basePath}" maxDepth="10">
+                    <IfLastModified age="1d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <!-- Info file logger -->
+        <RollingFile name="infoFileLogger"
+            fileName="${basePath}/info-${date:dd-MM-yyyy}.log"
+            filePattern="${basePath}/info-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <pattern>%d{HH:mm:00} [%t] %-5level %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="${basePath}" maxDepth="10">
+                    <IfLastModified age="1d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <!-- Error file logger -->
+        <RollingFile name="errorFileLogger"
+            fileName="${basePath}/error-${date:dd-MM-yyyy}.log"
+            filePattern="${basePath}/error-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout>
+                <pattern>%d{HH:00:00} [%t] %-5level %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="${basePath}" maxDepth="10">
+                    <IfLastModified age="1d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="debug" additivity="false">
+            <appender-ref ref="debugFileLogger" level="debug" />
+            <appender-ref ref="infoFileLogger" level="info" />
+            <appender-ref ref="errorFileLogger" level="error" />
+        </Root>
+    </Loggers>
+</Configuration>
